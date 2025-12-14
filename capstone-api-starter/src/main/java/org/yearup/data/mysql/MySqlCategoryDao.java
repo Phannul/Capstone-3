@@ -1,5 +1,6 @@
 package org.yearup.data.mysql;
 
+import org.apache.ibatis.jdbc.SQL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yearup.data.CategoryDao;
@@ -74,6 +75,29 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
     @Override
     public Category create(Category category) {
         // create a new category
+        String sql = """
+                INSERT INTO categories (name,description)
+                VALUE (?,?)
+                """;
+        try(Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS)){
+            preparedStatement.setString(1,category.getName());
+            preparedStatement.setString(2,category.getDescription());
+            try (ResultSet keys = preparedStatement.getGeneratedKeys()) {
+                if (keys.next()) {
+                    int newId = keys.getInt(1);
+                    category.setCategoryId(newId);
+                }
+            }
+            int row = preparedStatement.executeUpdate();
+            System.out.println(row);
+            if(row != 1){
+                System.err.println("Failed to insert the Intended amount of rows");
+            }
+            return category;
+        }catch (SQLException e){
+            System.err.println("Error on Creating a new Category");
+        }
         return null;
     }
 
