@@ -23,16 +23,14 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements org.yearup.dat
 
     public ShoppingCart getByUserId(int userId){
         ShoppingCart cart = new ShoppingCart();
-        HashMap<Integer, ShoppingCartItem> map = new HashMap<>();
-        cart.setItems(map);
+        cart.setItems(new HashMap<>());
         String sql = """
-                SELECT sc.product_id, sc.quantity,p.product_id,
-                       p.name, p.price, p.category_id, p.description, p.subcategory,
+                SELECT sc.product_id, sc.quantity,p.name,
+                       p.price, p.category_id, p.description, p.subcategory,
                        p.stock, p.image_url, p.featured
                 FROM shopping_cart sc
                 JOIN products USING (product_id)
-                WHERE sc.user_id = ? 
-             
+                WHERE sc.user_id = ?;
                 """;
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -40,34 +38,39 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements org.yearup.dat
             try(ResultSet resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()){
                     ShoppingCartItem item = new ShoppingCartItem();
-                    int id = resultSet.getInt(1);
-                    String name = resultSet.getString(2);
-                    BigDecimal price = resultSet.getBigDecimal(3);
-                    int catId = resultSet.getInt(4);
-                    String description = resultSet.getString(5);
-                    String subCat = resultSet.getString(6);
-                    int stock = resultSet.getInt(8);
-                    boolean featured = resultSet.getBoolean(9);
-                    String img = resultSet.getString(7);
-                    Product product = new Product(id,name,price,catId,description,subCat,stock,featured,img);
-                    item.setProduct(product);
+                    item.setProduct(mapRow(resultSet));
                     item.setQuantity(resultSet.getInt("quantity"));
-                    item.setQuantity(0);
-                    int productId = resultSet.getInt("product_id");
-                    cart.getItems().put(productId,item);
-                    return cart;
+                    cart.getItems().put(item.getProductId(), item);
                 }
             }
+
+            return cart;
         }catch (SQLException e){
-            System.err.println("error from adding items to shopping cart" + e);
-            e.printStackTrace();
+            throw new RuntimeException("Error on getting item from cart");
         }
-        return null;
+
     }
-    public void addToCart(ShoppingCartItem shoppingCartItem){
+    public void addToCart(int userId, int productId){
+
+    }
+    public void clearCart(int userId){
 
     }
     public void deleteFromCart(int productId){
 
+    }
+
+    protected static Product mapRow(ResultSet row) throws SQLException {
+        int productId = row.getInt("product_id");
+        String name = row.getString("name");
+        BigDecimal price = row.getBigDecimal("price");
+        int categoryId = row.getInt("category_id");
+        String description = row.getString("description");
+        String subCategory = row.getString("subcategory");
+        int stock = row.getInt("stock");
+        boolean isFeatured = row.getBoolean("featured");
+        String imageUrl = row.getString("image_url");
+
+        return new Product(productId, name, price, categoryId, description, subCategory, stock, isFeatured, imageUrl);
     }
 }
