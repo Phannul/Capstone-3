@@ -3,13 +3,12 @@
 ![Screenshot 2025-12-18 at 11.28.03 PM.png](../../Image/Screenshot%202025-12-18%20at%2011.28.03%E2%80%AFPM.png)
 
 ## 📌 Overview
-This project is a **Spring Boot–based E-Commerce REST API** developed as **Capstone 3** for the Year Up United Software Engineering pathway.
+This project is a **Spring Boot–based E-Commerce REST API**.
 
 The API powers a **Clothing Store web application**, allowing users to:
 - Browse products by category
 - Search and filter products
 - Authenticate using JWT
-- Manage a persistent shopping cart
 - Perform admin-level product and category management
 
 The front-end application is prebuilt; all development and enhancements were completed on the **backend API**.
