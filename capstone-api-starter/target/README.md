@@ -1,6 +1,6 @@
-# 👕 Clothing Store – E-Commerce API (Capstone 3)
+# 👕 Clothing Store – E-Commerce API
 
-![Clothing Store Banner](Images/Gemini_Generated_Image_77vv9677vv9677vv.png)
+![Screenshot 2025-12-18 at 11.28.03 PM.png](../../Image/Screenshot%202025-12-18%20at%2011.28.03%E2%80%AFPM.png)
 
 ## 📌 Overview
 This project is a **Spring Boot–based E-Commerce REST API** developed as **Capstone 3** for the Year Up United Software Engineering pathway.
@@ -51,6 +51,10 @@ The front-end application is prebuilt; all development and enhancements were com
     - Create categories
     - Update categories
     - Delete categories
+ 
+  ### 👤 Profile 
+- View the credentials of the logged in user 
+- Allow the logged in user to update their profile
 
 
 ### 🐞 Bug Fixes Implemented
@@ -65,3 +69,30 @@ The front-end application is prebuilt; all development and enhancements were com
 ### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/Phannul/capstone-3.git
+```
+### 2️⃣ Open the Project 
+- InteliJ IDEA (recommended)
+- used **JDK 17+**
+
+### 3️⃣Database Setup
+- Open **MySQL Wrokbench**
+- **Run** create_database.sql
+
+### 4️⃣ Run the Spring Application 
+
+### 5️⃣ Test with Insomnia 
+
+# 📸 Screenshot 
+
+## Home
+![Clothing Store Banner](Image/Screenshot 2025-12-18 at 10.55.54 PM.png)
+
+## Profile
+
+(![Screenshot 2025-12-18 at 11.13.17 PM.png](../../Image/Screenshot%202025-12-18%20at%2011.13.17%E2%80%AFPM.png)
+
+
+
+
+
+
