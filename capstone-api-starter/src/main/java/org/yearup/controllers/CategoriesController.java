@@ -16,7 +16,7 @@ import java.util.List;
 
 //Added annotation to make it a REST controller, have a general request mapping system for the class and allows cross site origin requests
 @RestController
-@RequestMapping("categories")
+@RequestMapping( "categories")
 @CrossOrigin
 public class CategoriesController {
     private CategoryDao categoryDao;
